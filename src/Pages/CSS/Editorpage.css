@@ -1,0 +1,72 @@
+.mainwrap {
+    display: grid;
+    height:100hv;
+    grid-template-columns: 230px 1fr;
+    height: 100vh;
+}
+
+.aside {
+    background: #0f0a19;
+    padding: 16px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+}
+
+.asideInner {
+    flex: 1;
+}
+
+.clientsList {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+
+}
+
+.client {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+   
+}
+
+.leaveBtn,
+.copyBtn {
+    width: 100%;
+    padding: 10px; 
+    padding: 10px; /* Add padding for better appearance */
+    cursor: pointer;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+}
+
+.leaveBtn {
+    margin-top: 20px;
+    background: rgb(245, 137, 137);
+}
+
+.leaveBtn:hover {
+
+    background: #f00d0d; 
+
+    background: #f00d0d; /* Darker red on hover */
+
+}
+
+.copyBtn {
+    background: rgb(109, 109, 230);
+}
+
+.copyBtn:hover {
+
+    background: #1313e2; 
+
+    background: #1313e2; /* Darker blue on hover */
+
+}
+
+
