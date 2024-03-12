@@ -39,11 +39,13 @@ const CodeEditor = ({ socketRef, roomId }) => {
   //     socketRef.current.off(ACTIONS.CODE_CHANGE, handleCodeChange);
   //   };
   // }, [socketRef, setValue, userTyping, editorRef]);
-if(socketRef.current){
+
+  //little woked
+  if(socketRef.current){
   socketRef.current.on(ACTIONS.CODE_CHANGE,({code})=>{
     setValue(code);
    console.log(code);
-   // editorRef.current.setValue(code);
+  //  editorRef.current.setValue(code);
  })
 }
 

@@ -38,14 +38,36 @@ const EditorPage = () => {
       });
 
       
+      // socketRef.current.on(ACTIONS.JOINED, ({ clients, username, socketId }) => {
+      //   if (username !== location.state?.username) {
+      //     toast.success(`${username} joined the room`);
+      //     console.log(`${username} joined the room`);
+      //   }
+
+      //   console.log(clients);
+      //   setClients(clients);
+      // });
+
       socketRef.current.on(ACTIONS.JOINED, ({ clients, username, socketId }) => {
-        if (username !== location.state?.username) {
-          toast.success(`${username} joined the room`);
-          console.log(`${username} joined the room`);
-        }
-        console.log(clients);
-        setClients(clients);
-      });
+        // Filter out duplicate usernames
+        const uniqueClients = clients.filter((client, index, self) =>
+            index === self.findIndex((c) => c.username === client.username)
+        );
+    
+        // Update the state with unique clients
+        setClients(uniqueClients);
+    
+        // Notify user about the join event for each unique username
+        uniqueClients.forEach((client) => {
+            if (client.username !== location.state?.username) {
+                toast.success(`${client.username} joined the room`);
+                console.log(`${client.username} joined the room`);
+            }
+        });
+    
+        console.log(uniqueClients);
+    });
+    
     };
     init();
   }, []);
