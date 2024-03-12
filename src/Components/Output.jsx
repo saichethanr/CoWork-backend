@@ -1,13 +1,13 @@
 import {useState} from 'react'
 import {Box,Button,Text,useToast} from '@chakra-ui/react'
 import { executeCode } from '../api';
-const Output = ({editorRef,language}) => {
+const Output = ({value,language}) => {
   const [output,setOutput]=useState(null)
   const [isLoading,setIsLoading]=useState(false)
   const toast=useToast();
   const [isError,setIsError]=useState(false)
     const runCode = async () => {
-        const sourceCode = editorRef.current.getValue();
+        const sourceCode = value;
         if (!sourceCode) return;
         try{
             setIsLoading(true);

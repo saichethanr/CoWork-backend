@@ -22,30 +22,17 @@ const CodeEditor = ({ socketRef, roomId }) => {
     setValue(CODE_SNIPPETS[language]);
   };
 
-  // useEffect(() => {
-  //   if (!socketRef || !socketRef.current) return;
-  
-  //   const handleCodeChange = ({ code }) => {
-  //     console.log(code);
-  //     if (!userTyping) {
-  //       setValue(code);
-  //       editorRef.current.setValue(code);
-  //     }
-  //   };
-  
-  //   socketRef.current.on(ACTIONS.CODE_CHANGE, handleCodeChange);
-  
-  //   return () => {
-  //     socketRef.current.off(ACTIONS.CODE_CHANGE, handleCodeChange);
-  //   };
-  // }, [socketRef, setValue, userTyping, editorRef]);
 
-  //little woked
+
+  //little worked
   if(socketRef.current){
   socketRef.current.on(ACTIONS.CODE_CHANGE,({code})=>{
     setValue(code);
    console.log(code);
-  //  editorRef.current.setValue(code);
+  //  if(editorRef){
+  //       editorRef.current.setValue(code);
+  //  }
+
  })
 }
 
@@ -84,7 +71,7 @@ const CodeEditor = ({ socketRef, roomId }) => {
             onChange={handleEditorChange}
           />
         </Box>
-        <Output editorRef={editorRef} language={language} />
+        <Output value={value} language={language} />
       </HStack>
     </Box>
   );
