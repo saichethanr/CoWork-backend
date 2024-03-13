@@ -89,48 +89,28 @@ app.post("/signup", async (req, res) => {
 });
 
 
+app.post("/login", async (req, res) => {
+    const email = req.body.useremail;
+    const password = req.body.userpassword;
+    const exist = await  db.query(
+      "SELECT * FROM users WHERE email = $1",[email]
+    )
+    if(exist.rows.length>0){
+      const user  = exist.rows[0];
+      const storedpassword = user.password;
+      if(storedpassword==password){
+        res.send("Success")
+      }
+      else{
+        res.send("incorrect password");
+      }
+    }
+    else{
+      res.send("user doesnt exist");
+    }
+  });
 
-// app.post("/signup", async (req, res) => {
-//     const name = req.body.firstname;
-//     const email = req.body.email;
-//     const password = req.body.password;
-
-//     try {
-//         const checkResult = await db.query("SELECT * FROM users WHERE email = $1", [email]);
-
-//         if (checkResult.rows.length > 0) {
-//             res.send("user already exists")
-//         } else {
-//             // Hash the password using bcrypt
-//             bcrypt.hash(password, saltRounds, async (err, hash) => {
-//                 if (err) {
-//                     console.error("Error hashing password:", err);
-//                     res.status(500).send("Error hashing password");
-//                 } else {
-//                     // Insert the user into the database with the hashed password
-//                     const result = await db.query(
-//                         "INSERT INTO users (email,name,password) VALUES ($1, $2 ,$3) RETURNING *",
-//                         [email, name, hash]
-//                     );
-//                     const user = result.rows[0];
-//                     req.login(user, (err) => {
-//                         if (err) {
-//                             console.error("Error logging in user:", err);
-//                             res.status(500).send("Error logging in user");
-//                         } else {
-//                             console.log("User successfully registered");
-//                             res.send("User successfully registered");
-//                         }
-//                     });
-//                 }
-//             });
-//         }
-//     } catch (err) {
-//         console.log(err);
-//         res.status(500).send("Internal server error");
-//     }
-// });
-
+  
 server.listen(port,()=>{
     console.log(`listning on port ${port}`)
 })
